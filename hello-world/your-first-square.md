@@ -79,7 +79,7 @@ You do it by adding this function:
 RendererCore::AddModel(*model, d->Target());
 ```
 
-The "RendererCore::AddModel()" void is going to use the model we created earlier, and add it into the Draw Call we made before (in this case we called it "d").
+The "RendererCore::AddModel()" is going to use the model we created earlier, and add it into the Draw Call we made before (in this case we called it "d").
 
 The whole **GameMain.h** code should look like this now:
 
