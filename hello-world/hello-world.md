@@ -100,7 +100,7 @@ Now once you done this, you wanna try it out, but...
 
 ## How do you compile the project?
 
-In order to compile the project, open a command prompt in your project folder (outside of the "Geometria" folder) and type `geometria --compile`.
+In order to compile the project, open a command prompt in your project folder (outside of the "Geometria" folder) and type `geo --compile`.
 Once you press Enter, its going to set up and compile automatically for you in one go.
 
 If everything compiles correctly without errors, the output is going to be created inside the "Geometria" folder, with the executable having the same name as your project.
