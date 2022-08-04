@@ -97,7 +97,7 @@ struct SquareScript : public ScriptBehaviour
 		if(Input::GetKey(GLFW_KEY_D))
 			GetTransform().position += Vector3(speed * Graphics::DeltaTime(), 0, 0); // Move right.
 	}
-}
+};
 
 #endif
 ```
