@@ -269,7 +269,7 @@ Make sure to add this, otherwise the compiler is not going to know the script ex
 To add the "SquareScript" to the model, we're going to use the `AddScript<>()` like this.
 
 ```cpp
-model->GetScript<SquareScript>();
+model->AddScript<SquareScript>();
 ```
 
 Betweeen the "<>" you add the ScriptBehaviour class/struct you wanna add to the object.
