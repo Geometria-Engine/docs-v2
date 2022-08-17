@@ -1,31 +1,100 @@
-<!-- index.html -->
-
 <!DOCTYPE html>
-<html>
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
-</head>
-<body>
-  <div id="app"></div>
-  <script>
-    window.$docsify = {
-      basePath: '/',
-      basePath: 'https://raw.githubusercontent.com/Geometria-Engine/docs-v2/main/',
-      loadSidebar: true,
-      subMaxLevel: 2,
-      'flexible-alerts': 
-      {
-        style: 'flat',
-      },
-      auto2top: true
-    }
-  </script>
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-  <script src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-c.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-cpp.js"></script>
-</body>
-</html>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="A 2D and 3D game engine focused on user freedom.">
+<title>Geometria Engine - The most free and open source 2D and 3D game engine</title>
+
+
+<script src="https://cdn.jsdelivr.net/npm/docsify-edit-on-github"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple-dark.css">
+<style>
+	* {
+		--sidebar-width: 300px;
+	}
+
+	.sidebar-nav {
+		font-size: 14px !important;
+	}
+</style>
+
+
+
+<div id="app"></div>
+<script>
+	window.$docsify = {
+		'name'           : 'Geometria Engine',
+		'basePath'       : 'https://raw.githubusercontent.com/Geometria-Engine/docs-v2/main/',
+		// 'basePath'       : 'http://localhost/',
+		'repo'           : 'https://github.com/Geometria-Engine/Geometria',
+		'homepage'       : 'README.md',
+
+
+		'flexible-alerts': {
+			style: 'flat'
+		},
+		'alias': {
+			'/.*/_sidebar.md': '/_sidebar.md'
+		},
+
+
+		'loadSidebar': true,
+		'maxLevel': 3,
+		'subMaxLevel': 3,
+		'sidebarDisplayLevel': 2,
+		'auto2top': true,
+
+
+		// Plugins
+		'search': {
+			'depth' : 3,
+			'noData' : 'Ops, nothing found...',
+			'placeholder': 'Search...'
+		},
+		'copyCode': {
+			'buttonText' : 'Copy to clipboard',
+			'errorText'  : 'Error',
+			'successText': 'Copied'
+		},
+		'plugins': [
+			(hook, vm) => {
+				const title = document.querySelector('title');
+				const rootTitle = title && title.textContent;
+				const titlePrefix = window.$docsify.name + ' - ';
+
+				if (rootTitle) {
+					hook.doneEach(() => {
+						const curTitle = title.textContent;
+						const isRoot = !/\/[a-z]/.test(location.hash);
+						const newTitle = isRoot ? rootTitle : titlePrefix + curTitle;
+
+						title.textContent = newTitle;
+					});
+				}
+			},
+			EditOnGithubPlugin.create(
+				'https://github.com/Geometria-Engine/docs-v2/blob/main/',
+				null,
+				function(file) {
+					return 'Edit this page on GitHub!'
+				}
+			)
+		]
+	}
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/docsify"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-c.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prismjs/components/prism-cpp.js"></script>
+
+
+<!-- Plugins -->
+<script async type="module" src="https://unpkg.com/docsify-plugin-flexible-alerts"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/search.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
