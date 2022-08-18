@@ -17,8 +17,8 @@ First up, let's bring back our project from [our previous tutorial](/hello-world
 .
 ├── Game
 |	├── GameMain.h
-|   ├── SquareScript.h
-|   ├── SquareScript.cpp (optional)
+|    ├── SquareScript.h
+|    ├── SquareScript.cpp (optional)
 |	├── billy.png
 |	└── ...
 └── ...
@@ -60,7 +60,7 @@ Now, if you re-compile the game, you should see our good ol' friend Billy standi
 ![Billy is back! :D](./resources/billy-is-back.png)
 
 Now, let's move around...
-![Billy is back! :D](./resources/billy-floating.png)
+![Billy is... not moving as expected?](./resources/billy-floating.png)
 
 Looks like it's not working as expected...
 
@@ -113,10 +113,12 @@ So how do we implement it inside our script? Easy! Simply change our old `GetTra
 
 And, *voilà!* Now Billy can move freely in this new 2D space!
 
-TODO: ADD IMAGE HERE
+![Moving Billy :D](./resources/2d-movement.png)
 
 > [!TIP]
 > To put the camera far back and see the whole scene better, simply add `Graphics::MainCamera()->GetTransform().position = Vector3(0,0,15);` to `GameMain.h` to move the camera 15 units away from the scene.
+
+## Teleporting Rigidbodies
 
 But now, how do we change the position? Like, if we need to teleport the player, or something. Simple! Instead of `GetTransform()`, use `r->GetRigidbodyTransform()`
 
@@ -140,7 +142,7 @@ One small issue you may have noticed is that Billy does not directly stop upon l
         r->SetVelocity(Vector3(0, r->GetVelocity().y, 0));// Cancels X Velocity
 ```
 
-You may notice the Y velocity gets canceled by the first lines of the chunk of code above. You can, if you want, remove it and instead let the gravity act on the player!
+Note: you can omit the lines talking about cancelling Y velocity, if you want Billy to fall when not touching any key. It's all up to you!
 
 ## Restrain Axes
 
@@ -148,6 +150,10 @@ If you play with these new scripts, you may notice that sometimes, Billy may str
 ```cpp
         model->GetScript<Rigidbody>()->freezePositionZ = true; // This will leave the Z-axis alone when applying velocity
 ```
+
+## Conclusion
+
+And... *Voilà!* You now know the basics on how to use Geometria's Physics API! Feel free to mess around with what your learned, and check out the [API docs on Physics](/api/Physics/index.md) for more interesting stuff (like Raycasts, which could be useful when testing for ground)!
 
 ## Final Script
 
@@ -158,6 +164,7 @@ If you play with these new scripts, you may notice that sometimes, Billy may str
 #define GAME_SQUARESCRIPT_H
 
 #include "geometria.h"
+#include "geometria/physics.h"
 
 struct SquareScript : public ScriptBehaviour
 {
@@ -172,20 +179,17 @@ struct SquareScript : public ScriptBehaviour
     void OnUpdate()
     {
         if(Input::GetKey(GLFW_KEY_W))
-            r->SetVelocity(Vector3(0, speed, 0)); // Move up.
+            r->SetVelocity(Vector3(r->GetVelocity().x, speed, 0)); // Move up.
         if(Input::GetKey(GLFW_KEY_S))
-            r->SetVelocity(Vector3(0, -speed, 0));// Move down.
+            r->SetVelocity(Vector3(r->GetVelocity().x, -speed, 0));// Move down.
         if(Input::GetKey(GLFW_KEY_A))
-            r->SetVelocity(Vector3(speed, 0, 0));// Move left.
+            r->SetVelocity(Vector3(-speed, r->GetVelocity().y, 0));// Move left.
         if(Input::GetKey(GLFW_KEY_D))
-            r->SetVelocity(Vector3(-speed, 0, 0));// Move right.
+            r->SetVelocity(Vector3(speed, r->GetVelocity().y, 0));// Move right.
 
         if(Input::GetKey(GLFW_KEY_R))
-            r->GetRigidbodyTransform().transform = Vector3(0);
+            r->GetRigidbodyTransform().position = Vector3(0);
 
-
-        if(!Input::GetKey(GLFW_KEY_W) && !Input::GetKey(GLFW_KEY_S))
-            r->SetVelocity(Vector3(r->GetVelocity().x, 0, 0)); // Cancels Y Velocity
         if(!Input::GetKey(GLFW_KEY_A) && !Input::GetKey(GLFW_KEY_D))
             r->SetVelocity(Vector3(0, r->GetVelocity().y, 0));// Cancels X Velocity
     }
@@ -217,7 +221,6 @@ struct GameMain
 		model->AddScript<Rigidbody>();
         model->AddScript<SquareScript>();
         model->texture = t;
-
         model->GetScript<Rigidbody>()->freezePositionZ = true;
 
         Model* platform = new Model(Model::Primitives::SQUARE, Vector3(0,-1, 0), Vector3(0), Vector3(3,1,1));
