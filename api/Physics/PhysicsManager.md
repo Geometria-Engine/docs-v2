@@ -102,7 +102,7 @@ Used frequently for picking objects with a mouse, along other things.
 
 // Check from a point of the screen if we hit something
 // with a maximum distance of 1000.
-if(PhysicsManager::Raycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000))
+if(PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000))
 {
 	std::cout << "We hitted something!" << std::endl;
 }
@@ -125,7 +125,7 @@ The same as before, but we store the data into a RaycastBuffer for further analy
 // All of this data is going to be saved in a RaycastBuffer for more
 // extended analysis.
 RaycastBuffer buff;
-PhysicsManager::Raycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
 
 // Let's supposed that we have a reference of a BoxCollider
 // that we've got via "someObject->GetScript<BoxCollider>()".
@@ -153,3 +153,160 @@ This can be used for extensive analysis, like checking what kind of objects it h
 **Returns**: One boolean.
 
 This function is used to check if anything has collided with the stored Raycast except for a specific object.
+
+This can be used for a Jump mechanic, to prevent checking the player and accidentally mistaking it with the ground.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// Let's do a raycast to check the floor, and save that data to the buffer.
+// Our player is a 1x1 square, so let's set the origin close to the center of its body.
+RaycastBuffer buff;
+PhysicsManager::Raycast(Vector3(GetTransform().position.x, GetTransform().position.y - 0.55f, GetTransform().position.z), Vector3::down(), 0.01, buff);
+
+// Let's get the player's collision box and check it.
+if(buff.HittedAnythingExcept(GetScript<BoxCollider>()))
+{
+	std::cout << "The player can now jump :D" << std::endl;
+}
+
+... // Bottom code
+```
+
+### bool HittedAnything()
+
+**Returns**: One boolean.
+
+This function is like the last one, but checks if anything hitted, regardless of the object.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// Let's do mouse picking and check if we clicked a collider.
+RaycastBuffer buff;
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+
+if(buff.HittedAnything())
+{
+	std::cout << "Hit!" << std::endl;
+}
+
+... // Bottom code
+```
+
+### Vector3 GetPoint(float p)
+
+**Requires**: One float.
+**Returns**: One Vector3.
+
+With this function, you can get a point in the raycast.
+
+If we launch a ray with a distance of 1000, and we want to get the position of it, but in the middle (in the length 500), we use this function to get that result.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// Let's do mouse picking, and get the ray's position in the length 10.
+RaycastBuffer buff;
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+
+std::cout << buff.GetPoint(10).ToString() << std::endl;
+
+... // Bottom code
+```
+
+## Variables:
+
+### Vector3 origin
+
+Gets/Sets the origin of the raycast.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// Let's do mouse picking...
+RaycastBuffer buff;
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+
+... // Some code...
+
+// Oh no! There's too much code! I forgot the origin of the ray!
+
+// Eh... I'll just print the origin from the RaycastBuffer...
+
+std::cout << buff.origin.ToString() << std::endl;
+
+... // Bottom code
+```
+
+### Vector3 end
+
+Gets/Sets the end of the raycast.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// Let's do mouse picking...
+RaycastBuffer buff;
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+
+// Let's get the end of the Ray and save it in a Vector3 for later.
+
+Vector3 getEndRay = buff.end;
+
+... // Bottom code
+```
+
+### Vector3 direction
+
+Gets/Sets the direction of the raycast.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// Let's do mouse picking...
+RaycastBuffer buff;
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+
+// I want to know the direction of the Raycast, since i don't have that kind of information and don't have time to accurately calculate it.
+
+std::cout << buff.direction.ToString() << std::endl;
+
+... // Bottom code
+```
+
+### std::vector<ScriptBehaviour* > hitScripts
+
+Gets/Sets the amount of objects the raycast hitted.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// Let's do mouse picking...
+RaycastBuffer buff;
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+
+// I want to know how many objects have the "EnemyAI" script
+// that i recently created for my game.
+for(auto i : buff.hitScripts)
+{
+	if(i->GetScript<EnemyAI>() != nullptr)
+		std::cout << "Found an Enemy!" << std::endl;
+}
+
+... // Bottom code
+```

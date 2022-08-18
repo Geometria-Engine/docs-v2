@@ -8,3 +8,4 @@ This is the **Physics API**. In here you'll find all ScriptBehaviour components,
 - Collisions:
   - [BoxCollider](/api/Physics/BoxCollider.md)
 - [PhysicsManager](/api/Physics/PhysicsManager.md)
+- [RaycastBuffer](/api/Physics/PhysicsManager.md?id=raycastbuffer)
