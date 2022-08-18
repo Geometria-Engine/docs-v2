@@ -18,6 +18,7 @@
 		- [BoxCollider](/api/Physics/BoxCollider.md)
 		- [PhysicsManager](/api/Physics/PhysicsManager.md)
 		- [RaycastBuffer](/api/Physics/PhysicsManager.md?id=raycastbuffer)
+	- [String](/api/String/index.md)
 
 
 
