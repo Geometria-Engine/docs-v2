@@ -20,6 +20,7 @@
 		- [RaycastBuffer](/api/Physics/PhysicsManager.md?id=raycastbuffer)
 	- [String](/api/String/index.md)
 	- [Multithreading](/api/Multithreading/index.md)
+	- [Files](/api/Files/index.md)
 
 
 - **Links**
