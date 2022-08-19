@@ -66,7 +66,7 @@ std::cout << content << std::endl;
 ... // Bottom code
 ```
 
-### std::vector<std::string> ReadAndGetLines(const char* url)
+### std::vector\<std::string\> ReadAndGetLines(const char* url)
 
 **Requires**: One const array of characters.
 **Returns**: One vector of strings.
