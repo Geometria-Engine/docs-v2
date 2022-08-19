@@ -224,3 +224,9 @@ Files::Rename("Game/file.txt", "Game/cookingRecipe.txt");
 
 ... // Bottom code
 ```
+
+# Directory & ZIP Management:
+
+# Console functions:
+
+# System & App Management:
