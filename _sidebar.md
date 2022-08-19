@@ -11,6 +11,8 @@
 		- [SB: Transforming Objects](/hello-world/sb-transforming-objects.md)
 		- [SB: Adding Input](/hello-world/sb-add-input.md)
 
+* [Introduction to Physics](/physics/introduction-to-physics.md)
+
 * [Geometria Reference API](/api/index.md)
 	- [Physics](/api/Physics/index.md)
 		- [Rigidbody](/api/Physics/Rigidbody.md)
