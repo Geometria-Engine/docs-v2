@@ -3,7 +3,7 @@
 
 * [Getting Started](/get-started/getting-started.md)
 
-* Tutorials
+* [Tutorials](/tutorials.md)
  	- [Hello World!](/hello-world/hello-world.md)
  		- [Draw Calls & Your First Square](/hello-world/your-first-square.md)
  		- [Draw Call Batching](/hello-world/draw-call-batching.md)
