@@ -48,7 +48,7 @@ static void Say(std::string something)
 static void Init()
 {
 	// Let's run "SayHelloWorld()" asynchronously, for this we're going to add a lambda.
-	Multithreading::RunThread([this]({ SayHelloWorld(); }));
+	Multithreading::RunThread([](){ SayHelloWorld(); });
 
 	// Now let's run "Say()".
 	// Because it needs a parameter, we're gonna use std::bind.
@@ -89,7 +89,7 @@ static void Say(std::string something)
 static void Init()
 {
 	// Let's run "SayHelloWorld()" asynchronously, in a constant rate each 200 milliseconds, again like the last one, we're gonna use a lambda.
-	Multithreading::RunUpdateThread([this]({ SayHelloWorld(); }), 200);
+	Multithreading::RunUpdateThread([](){ SayHelloWorld(); }, 200);
 
 	// Now let's run "Say()", this time at 60fps.
 	// Because it needs a parameter, we're gonna use std::bind.
@@ -105,7 +105,7 @@ static void Init()
 The Thread struct/class is basically the thread in the form of an object, if you want to manipulate it in the code, you can do this:
 
 ```cpp
-Thread* t = Multithreading::RunUpdateThread([this]({ SayHelloWorld(); }), 16);
+Thread* t = Multithreading::RunUpdateThread([](){ SayHelloWorld(); }, 16);
 ```
 
 And you'll keep the thread in form of a pointer for later use.
@@ -126,7 +126,7 @@ This function allows you to change the speed of the thread execution in millisec
 ... // Top code
 
 // In the beginning i summoned this update thread at 60fps, but i want to slow it down later on.
-Thread* t = Multithreading::RunUpdateThread([this]({ SayHelloWorld(); }), 16);
+Thread* t = Multithreading::RunUpdateThread([](){ SayHelloWorld(); }, 16);
 
 ... // More code
 
@@ -149,7 +149,7 @@ This function sets the Thread to its Hybernation State.
 // i would like to put it to sleep so it 
 // doesn't use a lot of CPU power.
 // I'll wake it up later when i need it.
-Thread* t = Multithreading::RunUpdateThread([this]({ SayHelloWorld(); }), 16);
+Thread* t = Multithreading::RunUpdateThread([](){ SayHelloWorld(); }, 16);
 
 ... // More code
 
