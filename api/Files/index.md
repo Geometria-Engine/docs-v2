@@ -168,10 +168,59 @@ Files::Write("output.bin", binaryData, true);
 ... // Bottom code
 ```
 
-### std::string Replace(const char* oldFile, const char* newFile, bool isBinary)
-
-
-
 ### std::string Replace(const char* oldFile, const char* newFile)
 
+**Requires**: Two const array of characters.
+**Returns**: A String.
+
+This is used to change the file's location. Basically "cut and paste" from one folder to another.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// I have a .txt file that is currently located in my "Game"
+// folder, but i want to move it to the executable's directory.
+Files::Replace("Game/file.txt", "file.txt");
+
+... // Bottom code
+```
+
+### std::string Replace(const char* oldFile, const char* newFile, bool isBinary)
+
+**Requires**: Two const array of characters and a boolean.
+**Returns**: A String.
+
+The same as above, but in binary mode.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// I have an .exe file that is currently located in my "Game"
+// folder, but i want to move it to the executable's directory.
+Files::Replace("Game/app.exe", "app.exe", true);
+
+... // Bottom code
+```
+
 ### bool Rename(const char* oldFile, const char* newFile)
+
+**Requires**: Two const array of characters.
+**Returns**: A String.
+
+This function llows you to change the name of a file.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// I have a .txt file that i want to change the name to
+// something else.
+Files::Rename("Game/file.txt", "Game/cookingRecipe.txt");
+
+... // Bottom code
+```
