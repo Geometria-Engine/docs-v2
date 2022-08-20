@@ -25,7 +25,7 @@ Let's imagine the basic scene with a square, like in the previous tutorials.
 
 ![Box Collider Demonstration 1](./resources/box-collider-1.png)
 
-And as a game developer, we want this to be interactable with the physics world. That's where the Box Collider (or any kind of collider) comes into play.
+And as a game developer, i want this to be interactable with the physics world. That's where the Box Collider (or any kind of collider) comes into play.
 
 By adding this component, the model becomes part of the physics world.
 
