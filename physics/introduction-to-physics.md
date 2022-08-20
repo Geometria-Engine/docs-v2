@@ -35,14 +35,14 @@ By adding this component, the model becomes part of the physics world.
 
 Now, this object can interact with anything related to physics, like objects falling from the sky, bullets shooting straight to it, objects being on top of it, etcetera.
 
-Since it doesn't have anything other than the Box Collider, this becomes a static model in this physics world, so it can make different roles such as:
+Since it doesn't have anything other than the Box Collider, this becomes a static model in this physics world. This means that its not affected to gravity, it becomes completely solid, so it can make different roles such as:
 
 - An immovable object.
 - A floor.
 - Simple furniture like a little table.
 - And more stuff!
 
-For example, if we have two objects, one being a table, and the other one being a flower inside a vase. Both objects being internally, models with a texture on them.
+Let's see another example: We have two objects, one being a table, and the other one being a flower inside a vase. Both objects being internally, models with a texture on them.
 
 ![Box Collider Demonstration 3](./resources/box-collider-3.png)
 
