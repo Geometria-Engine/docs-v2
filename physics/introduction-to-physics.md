@@ -56,6 +56,13 @@ Now that i told you all of this.
 
 Let's go back to GameMain.h, and set up a basic scene:
 
+**The most important thing to add first, is the "Physics" header file.** It doesn't come inside of "geometria.h" by default, so you have to include the physics below the main header.
+
+```cpp
+#include "geometria.h"
+#include "geometria/physics.h"
+```
+
 ```cpp
 static void Init()
 {
@@ -72,6 +79,15 @@ Well, since the BoxCollider is a ScriptBehaviour component, to add it to our mod
 ```cpp
 model->AddScript<BoxCollider>();
 ```
+
+## Remember, don't forget to include the Physics header file, its important.
+
+```cpp
+#include "geometria.h"
+#include "geometria/physics.h"
+```
+
+## Final Result.
 
 And if we compile and run it, well, nothing changed... But the object is now part of the physics world! :D
 
