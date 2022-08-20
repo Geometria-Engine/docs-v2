@@ -75,4 +75,4 @@ model->AddScript<BoxCollider>();
 
 And if we compile and run it, well, nothing happens... But the object is now part of the physics world! :D
 
-![Result](../hello-world/resources/square-2.png)
+![Result](./resources/square-1.png)
