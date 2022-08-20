@@ -73,6 +73,14 @@ Well, since the BoxCollider is a ScriptBehaviour component, to add it to our mod
 model->AddScript<BoxCollider>();
 ```
 
-And if we compile and run it, well, nothing happens... But the object is now part of the physics world! :D
+And if we compile and run it, well, nothing changed... But the object is now part of the physics world! :D
 
 ![Result](./resources/square-1.png)
+
+Congrats!
+
+You successfully added a collider component to an object!
+
+Now in the next tutorial, its going to become more interesting, with the introduction of [**The Rigidbody**](/physics/the-rigidbody.md).
+
+See you there! :D

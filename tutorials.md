@@ -9,3 +9,4 @@
  	- [SB: Transforming Objects](/hello-world/sb-transforming-objects.md)
  	- [SB: Adding Input](/hello-world/sb-add-input.md)
  - [Introduction to Physics](/physics/introduction-to-physics.md)
+    - [The Rigidbody](/physics/the-rigidbody.md)
