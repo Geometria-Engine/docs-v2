@@ -53,3 +53,26 @@ If we want to get them into the physical world as static objects, we simply crea
 Now that i told you all of this.
 
 ## Let's put it to the test...
+
+Let's go back to GameMain.h, and set up a basic scene:
+
+```cpp
+static void Init()
+{
+    DrawCall* d = SceneManager::MainScene().CreateDrawCall();
+    Model* model = new Model(Model::Primitives::SQUARE, Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1, 1, 1));
+    RendererCore::AddModel(*model, d->Target());
+}
+```
+
+**Remember when we made our first script?**
+
+Well, since the BoxCollider is a ScriptBehaviour component, to add it to our model, we simply use ```AddScript<>()```!
+
+```cpp
+model->AddScript<BoxCollider>();
+```
+
+And if we compile and run it, well, nothing happens... But the object is now part of the physics world! :D
+
+![Result](/hello-world/resources/square-2.png)
