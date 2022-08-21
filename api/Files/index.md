@@ -211,7 +211,7 @@ Files::Replace("Game/app.exe", "app.exe", true);
 **Requires**: Two const array of characters.
 **Returns**: A String.
 
-This function llows you to change the name of a file.
+This function allows you to change the name of a file.
 
 **Short Example**:
 
@@ -224,9 +224,138 @@ Files::Rename("Game/file.txt", "Game/cookingRecipe.txt");
 
 ... // Bottom code
 ```
+### std::string OpenImage(const char* url, int& width, int& height);
 
-# Directory & ZIP Management:
+**Requires**: A const array of characters, and two integers.
+**Returns**: A String, containing the image data.
 
-# Console functions:
+This function allows you to read image data.
 
-# System & App Management:
+**Short Example**:
+
+```cpp
+... // Top code
+
+//I have a .png file which i know the width and height 
+//that I want to read the data from.
+int width = 16;
+int height = 16;
+std::string billyData = Files::OpenImage("Game/billy.png", width, height);
+
+... // Bottom code
+```
+
+### std::vector<std::string> OpenTexturePack(const char* gtxp);
+
+> uhhhhhhhh what's this supposed to be?
+> -#Guigui
+
+### bool Remove(const char* url);
+
+**Requires**: A const array of characters.
+**Returns**: A boolean.
+
+This function removes the file at desired file path.
+
+```cpp
+... // Top code
+
+//I have a .txt file I want to remove.
+Files::Remove("Game/meanwords.txt");
+
+... // Bottom code
+```
+
+### std::vector<unsigned char> GetImageData(const char* url, int& width, int& height);
+
+Same as `OpenImage()`, but instead of an `std::string`, it's an `std::vector` full of unsigned chars that gets returned.
+
+### bool SaveImage(std::string output, std::vector<unsigned char> data, int width, int height);
+
+**Requires**: A string, a vector of unsigned chars, and two integers.
+**Returns**: A boolean.
+
+This function saves image data to a file.
+
+```cpp
+... // Top code
+
+// I have a vector of unsigned chars (called "data") containing modified image data of a 256*256 image, and want to save it to a file.
+Files::SaveImage("newfile.png", data, 256, 256);
+
+... // Bottom code
+```
+
+### std::vector<float> ReadOBJ(const char* url);
+
+**Requires**: An array of chars.
+**Returns**: A vector of floats.
+
+Reads an .obj file and returns a vector of floats, containing vertex data
+
+> TODO: what's it supposed to be help
+
+## Directory & ZIP Management:
+
+### void CreateDirectory(const char* url);
+
+**Requires**: An array of chars.
+**Returns**: Nothing.
+
+This function creates a directory in the specified location.
+
+```cpp
+... // Top code
+
+// I want to create a folder in the Game directory.
+Files::CreateDirectory("Game/NewFolder_9999");
+
+... // Bottom code
+```
+
+### void CopyDirectory(const char* url, const char* dest);
+
+**Requires**: Two arrays of chars.
+**Returns**: Nothing.
+
+This function copies the specified directory into the specified destination.
+
+```cpp
+... // Top code
+
+// I want to copy a folder to another place.
+Files::CreateDirectory("Game/DO_NOT_LOSE_THIS_DATA", "Backup/ImportantData");
+
+... // Bottom code
+```
+
+### void DeleteDirectory(const char* url);
+
+**Requires**: An array of chars.
+**Returns**: Nothing.
+
+### bool DirectoryExists(const char* url);
+
+**Requires**: An array of chars.
+**Returns**: A boolean.
+
+### std::string GetDirectoryOf(const char* file);
+
+**Requires**: An array of chars.
+**Returns**: A string.
+
+### std::string GetFilenameFromDirectory(const char* dir);
+
+**Requires**: An array of chars.
+**Returns**: A string.
+
+
+### int UnZIP(const char* url, [OPTIONAL] std::string discardFolderEx);
+
+**Requires**: An array of chars, and optionally a string.
+**Returns**: An integer.
+
+
+## Console functions:
+
+## System & App Management:
