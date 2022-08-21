@@ -15,6 +15,7 @@
  	- [Introduction to Physics](/physics/introduction-to-physics.md)
  		- [The Rigidbody](/physics/the-rigidbody.md)
  		- [The Basics of Raycasting](/physics/the-basics-of-raycasting.md)
+ 		- [Introducing Triggers](/physics/introducing-triggers.md)
 
 * [Geometria Reference API](/api/index.md)
 	- [Physics](/api/Physics/index.md)
