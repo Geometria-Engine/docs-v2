@@ -82,3 +82,7 @@ If that's the case for you then...
 ## Congratulations!
 
 You made it! You made your first dynamic physics scene!
+
+Now, in the next chapter, we're jumping back into script programming like we did with the "SquareScript.h" back in the "Hello World" Tutorial!
+
+We're going to take a look at [**The Basics of Raycasting**](/physics/the-basics-of-raycasting.md), see you there! :D

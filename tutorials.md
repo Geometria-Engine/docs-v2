@@ -10,3 +10,4 @@
  	- [SB: Adding Input](/hello-world/sb-add-input.md)
  - [Introduction to Physics](/physics/introduction-to-physics.md)
     - [The Rigidbody](/physics/the-rigidbody.md)
+    - [The Basics of Raycasting](/physics/the-basics-of-raycasting.md)
