@@ -393,7 +393,7 @@ if(rBuffer.HittedAnythingExcept(GetScript<BoxCollider>()))
 ... // Bottom code
 ```
 
-If you want a more performant option, you can actually do the same thing as the second Rigidbody approach, but with the BoxCollider, if you want:
+If you want a more performant option, you can actually do the same thing as the second [Rigidbody](/api/Physics/Rigidbody.md) approach, but with the [BoxCollider](/api/Physics/BoxCollider.md), if you want:
 
 ```cpp
 ... // Top code
