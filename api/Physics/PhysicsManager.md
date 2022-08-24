@@ -214,9 +214,37 @@ If we launch a ray with a distance of 1000, and we want to get the position of i
 
 // Let's do mouse picking, and get the ray's position in the length 10.
 RaycastBuffer buff;
-PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
+PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff);
 
 std::cout << buff.GetPoint(10).ToString() << std::endl;
+
+... // Bottom code
+```
+
+### void DiscardTriggers(bool b)
+
+**Requires**: One boolean.
+
+It allows you to set if you want the Raycast Buffer to store triggers or not.
+
+If true, it'll discard triggers and only store normal collisions.
+If false, it'll store both triggers and normal collisions.
+
+**Short Example**:
+
+```cpp
+... // Top code
+
+// I have a jump mechanic, but i can jump inside a trigger that loads an area
+// which makes the player jump mid-air.
+// I want to prevent this from happening, so i'll discard the triggers
+// in the buffer before doing the raycast.
+
+RaycastBuffer buff;
+buff.DiscardTriggers(true);
+
+// Now i can shoot the ray.
+PhysicsManager::Raycast(GetTransform().position, Vector3::down(), 1, rBuffer);
 
 ... // Bottom code
 ```
