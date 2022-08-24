@@ -97,7 +97,7 @@ To demonstrate it a bit visually, we're going to use a "Model" instead to see wh
 	  triggerBC->SetTrigger(true);
  	```
 
- 	To prevent using the GetScript<>() and save the engine from having to look for it, we save it in a pointer. But you can do this other implementation, which is much quicker, whatever fits best for you:
+ 	To prevent using the ```GetScript<>()``` and save the engine from having to look for it, we save it in a pointer. But you can do this other implementation, which is much quicker, whatever fits best for you:
 
  	```cpp
  	 trigger->AddScript<Rigidbody>();
