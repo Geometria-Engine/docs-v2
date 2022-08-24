@@ -87,7 +87,7 @@ This is like Files::Read(), with the difference that its going to split all of t
 // 		<p>Hello!</p>
 // </html>
 
-std::vector<std::string> htmlLines = Files::ReadAndGetLines("Game/index.html");
+std::vector\<std::string\> htmlLines = Files::ReadAndGetLines("Game/index.html");
 
 // Now let's print the output, and add a "======" after
 // printing a line.
@@ -245,7 +245,7 @@ std::string billyData = Files::OpenImage("Game/billy.png", width, height);
 ... // Bottom code
 ```
 
-### std::vector<std::string> OpenTexturePack(const char* gtxp);
+### std::vector\<std::string\> OpenTexturePack(const char* gtxp);
 
 > uhhhhhhhh what's this supposed to be?
 > -#Guigui
@@ -266,7 +266,7 @@ Files::Remove("Game/meanwords.txt");
 ... // Bottom code
 ```
 
-### std::vector<unsigned char> GetImageData(const char* url, int& width, int& height);
+### std::vector\<unsigned char\> GetImageData(const char* url, int& width, int& height);
 
 Same as `OpenImage()`, but instead of an `std::string`, it's an `std::vector` full of unsigned chars that gets returned.
 
@@ -286,7 +286,7 @@ Files::SaveImage("newfile.png", data, 256, 256);
 ... // Bottom code
 ```
 
-### std::vector<float> ReadOBJ(const char* url);
+### std::vector\<float\> ReadOBJ(const char* url);
 
 **Requires**: An array of chars.
 **Returns**: A vector of floats.
@@ -324,7 +324,7 @@ This function copies the specified directory into the specified destination.
 ... // Top code
 
 // I want to copy a folder to another place.
-Files::CreateDirectory("Game/DO_NOT_LOSE_THIS_DATA", "Backup/ImportantData");
+Files::CopyDirectory("Game/DO_NOT_LOSE_THIS_DATA", "Backup/ImportantData");
 
 ... // Bottom code
 ```
@@ -334,20 +334,71 @@ Files::CreateDirectory("Game/DO_NOT_LOSE_THIS_DATA", "Backup/ImportantData");
 **Requires**: An array of chars.
 **Returns**: Nothing.
 
+This function deletes the specified folder.
+
+```cpp
+... // Top code
+
+// I want to delete a folder.
+Files::DeleteDirectory("SomeUnneededFolder");
+
+... // Bottom code
+```
+
 ### bool DirectoryExists(const char* url);
 
 **Requires**: An array of chars.
 **Returns**: A boolean.
+
+This function tells you whether a directory exists or no.
+
+```cpp
+... // Top code
+
+// Let's say I want to check if a folder exists before checking the files inside:
+if(Files::DirectoryExists("CoolFolder")){
+	... //Code related to do stuff with the contents of the folder
+}else{
+	std::cout << "No folder named \"CoolFolder\" to be seen! :(" << std::endl;
+}
+... // Bottom code
+```
 
 ### std::string GetDirectoryOf(const char* file);
 
 **Requires**: An array of chars.
 **Returns**: A string.
 
+Removes the filename from the directory path. Could be useful to get a folder from a full path.
+
+```cpp
+... // Top code
+
+//Let's say I need to get the directory of some file 
+std::cout << Files::GetDirectoryOf("Path/To/SomeFile.txt") << std::endl;
+
+//Output: Path/To/
+
+... // Bottom code
+```
+
 ### std::string GetFilenameFromDirectory(const char* dir);
 
 **Requires**: An array of chars.
 **Returns**: A string.
+
+Retrieves the filename from a directoory path, and returns it. Basically the opposite of `GetDirectoryOf()`.
+
+```cpp
+... // Top code
+
+//Let's say I need to get the directory of some file 
+std::cout << Files::GetFilenameFromDirectory("Path/To/SomeFile.txt") << std::endl;
+
+//Output: SomeFile.txt
+
+... // Bottom code
+```
 
 
 ### int UnZIP(const char* url, [OPTIONAL] std::string discardFolderEx);
@@ -355,6 +406,21 @@ Files::CreateDirectory("Game/DO_NOT_LOSE_THIS_DATA", "Backup/ImportantData");
 **Requires**: An array of chars, and optionally a string.
 **Returns**: An integer.
 
+Unzips the specified ZIP file. [EXPERIMENTAL] You can provide a path to a folder to discard, like if for example everything in the zip is in a subfolder, you can put the path to that main folder from within the zip.
+
+```cpp
+... // Top code
+
+//Unzip a zip file
+Files::UnZIP("main.zip");
+
+//Unzip a zip file, but the zip is constitued like this:
+// /
+// - /something/
+//   - /something/everything.txt
+//and we want to remove the /something/ folder so that everything in that folder is unzipped.
+Files::UnZIP("main.zip", "/something");
+```
 
 ## Console functions:
 
