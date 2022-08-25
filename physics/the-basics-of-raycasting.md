@@ -303,7 +303,7 @@ If we compile and run the game, you can see that it starts like the Rigidbody ex
 
 ## But there's a problem...
 
-If we press "R" again while we're in mid-air, its going to teleport back again, even if the player didn't hitted the floor...
+If we press "R" again while we're in mid-air, its going to teleport back again, even if the player didn't hit the floor...
 
 What is the problem?
 
@@ -333,7 +333,7 @@ The other solution, that even allows you to not even modify the origin, is to us
 
 ## Introducing the "RaycastBuffer".
 
-The [**RaycastBuffer**](/api/Physics/PhysicsManager.md?id=raycastbuffer) is an object specifically made for deep Raycasting analysis, that allows you to get **A TON** of data, and inside that list of data, you can **check the objects that the Ray hitted**.
+The [**RaycastBuffer**](/api/Physics/PhysicsManager.md?id=raycastbuffer) is an object specifically made for deep Raycasting analysis, that allows you to get **A TON** of data, and inside that list of data, you can **check the objects that the Ray hits**.
 
 To start using it, you need to add it before the Raycast function is executed:
 
@@ -358,11 +358,11 @@ PhysicsManager::Raycast(GetTransform().position, Vector3::down(), 1, rBuffer);
 
 *You can remove the "if()" that encapsulates ```PhysicsManager::Raycast()``` since we're going to use another function provided by the RaycastBuffer, but this is something optional, nothing bad is going to happen.*
 
-After we made the Raycast, we're going to use the "rBuffer" to check if the ray hitted anything **except the Player**.
+After we made the Raycast, we're going to use the "rBuffer" to check if the ray hit anything **except the Player**.
 
 **How do we do this?**
 
-We do this by using the ```HittedAnythingExcept()``` boolean function!
+We do this by using the ```HitAnythingExcept()``` boolean function!
 
 ```cpp
 ... // Top code
@@ -370,13 +370,13 @@ We do this by using the ```HittedAnythingExcept()``` boolean function!
 RaycastBuffer rBuffer;
 PhysicsManager::Raycast(GetTransform().position, Vector3::down(), 1, rBuffer);
 
-if(rBuffer->HittedAnythingExcept(GetScript<BoxCollider>()))
+if(rBuffer->HitAnythingExcept(GetScript<BoxCollider>()))
 {
 
 ... // Bottom code
 ```
 
-```rBuffer->HittedAnythingExcept(GetScript<BoxCollider>())``` is going to check if any object is being hitted, except of the player's Box Collider. So we can use this to totally discard the player's hitbox when checking for the floor.
+```rBuffer->HitAnythingExcept(GetScript<BoxCollider>())``` is going to check if any object is being hit, except of the player's Box Collider. So we can use this to totally discard the player's hitbox when checking for the floor.
 
 So we end up with something similar to this:
 
@@ -386,7 +386,7 @@ So we end up with something similar to this:
 RaycastBuffer rBuffer;
 PhysicsManager::Raycast(GetTransform().position, Vector3::down(), 1, rBuffer);
 
-if(rBuffer.HittedAnythingExcept(GetScript<BoxCollider>()))
+if(rBuffer.HitAnythingExcept(GetScript<BoxCollider>()))
 {
 	rb->GetRigidbodyTransform().position = Vector3(0, 2, -5);
 }
@@ -406,7 +406,7 @@ bC = GetScript<BoxCollider>();
 
 ... // More code
 
-if(rBuffer.HittedAnythingExcept(bC))
+if(rBuffer.HitAnythingExcept(bC))
 {
 
 ... // Bottom code
