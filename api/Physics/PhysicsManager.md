@@ -49,7 +49,7 @@ This can be used for checking what objects collided with this beam, like a bulle
 // This Raycast will face to the front, up to a maximum distance of 1000.
 if(PhysicsManager::Raycast(Vector3(0, 0, 0), Vector3::front(), 1000))
 {
-	std::cout << "We hitted something!" << std::endl;
+	std::cout << "We hit something!" << std::endl;
 }
 
 ... // Bottom code
@@ -76,9 +76,9 @@ PhysicsManager::Raycast(Vector3(0, 0, 0), Vector3::front(), 1000, buff)
 
 // Let's supposed that we have a reference of a BoxCollider
 // that we've got via "someObject->GetScript<BoxCollider>()".
-// We can use this to check if it hitted everything
+// We can use this to check if it hit everything
 // except for that particular box.
-if(buff.HittedAnythingExcept(someBoxCollider))
+if(buff.HitAnythingExcept(someBoxCollider))
 {
 	std::cout << "Hit!" << std::endl;
 }
@@ -104,7 +104,7 @@ Used frequently for picking objects with a mouse, along other things.
 // with a maximum distance of 1000.
 if(PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000))
 {
-	std::cout << "We hitted something!" << std::endl;
+	std::cout << "We hit something!" << std::endl;
 }
 
 ... // Bottom code
@@ -129,9 +129,9 @@ PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::G
 
 // Let's supposed that we have a reference of a BoxCollider
 // that we've got via "someObject->GetScript<BoxCollider>()".
-// We can use this to check if it hitted everything
+// We can use this to check if it hit everything
 // except for that particular box.
-if(buff.HittedAnythingExcept(someBoxCollider))
+if(buff.HitAnythingExcept(someBoxCollider))
 {
 	std::cout << "Hit!" << std::endl;
 }
@@ -147,7 +147,7 @@ This can be used for extensive analysis, like checking what kind of objects it h
 
 ## Functions:
 
-### bool HittedAnythingExcept(ScriptBehaviour* s)
+### bool HitAnythingExcept(ScriptBehaviour* s)
 
 **Requires**: One ScriptBehaviour.
 **Returns**: One boolean.
@@ -167,7 +167,7 @@ RaycastBuffer buff;
 PhysicsManager::Raycast(Vector3(GetTransform().position.x, GetTransform().position.y - 0.55f, GetTransform().position.z), Vector3::down(), 0.01, buff);
 
 // Let's get the player's collision box and check it.
-if(buff.HittedAnythingExcept(GetScript<BoxCollider>()))
+if(buff.HitAnythingExcept(GetScript<BoxCollider>()))
 {
 	std::cout << "The player can now jump :D" << std::endl;
 }
@@ -175,11 +175,11 @@ if(buff.HittedAnythingExcept(GetScript<BoxCollider>()))
 ... // Bottom code
 ```
 
-### bool HittedAnything()
+### bool HitAnything()
 
 **Returns**: One boolean.
 
-This function is like the last one, but checks if anything hitted, regardless of the object.
+This function is like the last one, but checks if anything hit, regardless of the object.
 
 **Short Example**:
 
@@ -190,7 +190,7 @@ This function is like the last one, but checks if anything hitted, regardless of
 RaycastBuffer buff;
 PhysicsManager::ScreenCameraRaycast(*Graphics::MainCamera(), Vector2(Graphics::GetMainWindow().Mouse.X, Graphics::GetMainWindow().Mouse.Y), 1000, buff)
 
-if(buff.HittedAnything())
+if(buff.HitAnything())
 {
 	std::cout << "Hit!" << std::endl;
 }
@@ -317,7 +317,7 @@ std::cout << buff.direction.ToString() << std::endl;
 
 ### std::vector<ScriptBehaviour* > hitScripts
 
-Gets/Sets the amount of objects the raycast hitted.
+Gets/Sets the amount of objects the raycast hit.
 
 **Short Example**:
 
