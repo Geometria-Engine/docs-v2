@@ -68,7 +68,7 @@ Model* rigidBody = new Model(Model::Primitives::SQUARE, Vector3(0, 4, -10), Vect
 And remember in the script we made earlier (*in the last tutorial, it was called the "Player" script*), we need to change the origin aswell:
 
 ```cpp
-if(rBuffer.HittedAnythingExcept(GetScript<BoxCollider>()))
+if(rBuffer.HitAnythingExcept(GetScript<BoxCollider>()))
 {
 	GetScript<Rigidbody>()->GetRigidbodyTransform().position = Vector3(0, 4, -10);
 }
