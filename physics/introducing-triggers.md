@@ -115,7 +115,7 @@ To demonstrate it a bit visually, we're going to use a "Model" instead to see wh
 
 Because Triggers ***HAVE*** to be dynamic in order to work.
 
-Triggers need to constantly look if something touches it/its inside of the trigger, even if it is a Rigidbody or isn't, which is something a static model can't do on its own (*atleast not internally*).
+Triggers need to constantly look out for something touching/overlapping with the trigger, which is something a Non-Rigidbody/static object cannot do on its own.
 
 ## 1st Result.
 
