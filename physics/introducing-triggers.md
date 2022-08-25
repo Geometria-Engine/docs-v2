@@ -8,9 +8,9 @@ You *might* be asking yourself...
 
 ## What is a Trigger?
 
-Well, a Trigger is basically a collision, which only goal is to check if other collisions are inside it.
+Well, a Trigger is basically a collision detection object, with the sole purpose of checking if other collisions are inside it.
 
-**Other collisions can't collide with it, they only go through it**, meaning that can't act as something like a wall or a floor.
+**Other objects can't collide with it, therefore it merely detects an overlap of objects**.
 
 ***But...*** it can act as an invisible activator, like an invisible cube that opens a door, or something that activates a trap!
 
@@ -38,7 +38,7 @@ Thank god Bob is safe :)
 
 ## But what caused this situation to happen?
 
-Well, let's go back to the 1st panel and make all collisions visible:
+Well, let's go back to the 1st panel and make all collision objects & triggers visible:
 
 ![Triggers Explanation 1](./resources/trigger-explanation-1.png)
 
