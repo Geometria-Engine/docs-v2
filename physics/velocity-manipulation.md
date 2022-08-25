@@ -34,6 +34,6 @@ By applying a certain speed, we can move it to a certain direction:
 
 ![Velocity 4](./resources/velocity-4.png)
 
-And once we execute that function with an **extremely high** speed, it'll push itself so fast that it'll tear the wall and knock it down!
+And once we execute that function with an **extremely high** speed, it'll push itself so fast that it'll knock down the wall!
 
 ![Velocity 5](./resources/velocity-5.png)
