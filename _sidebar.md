@@ -16,6 +16,7 @@
  		- [The Rigidbody](/physics/the-rigidbody.md)
  		- [The Basics of Raycasting](/physics/the-basics-of-raycasting.md)
  		- [Introducing Triggers](/physics/introducing-triggers.md)
+ 		- [Velocity Manipulation](/physics/velocity-manipulation.md)
 
 * [Geometria Reference API](/api/index.md)
 	- [Physics](/api/Physics/index.md)

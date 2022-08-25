@@ -154,3 +154,202 @@ This will basically set that instruction before it does the Raycast, if you do t
 If we compile and run it, you can see clearly that when i press "R" inside the Trigger, its not going to teleport the Rigidbody to the top.
 
 **Problem Solved! YAY! :D**
+
+## Now, let's make the Trigger do something...
+
+What if we want to change the color of the Rigidbody when enters the trigger, and when it exits the triggers goes back to its original color?
+
+**YES, Let's do that! :D... But how?**
+
+Well, first we need to add a functionality to the trigger object, so to get started, let's make another script!
+
+**For this tutorial i'll make a new "Trigger.h" file.**
+
+In this tutorial, i'm going to add it in the same directory the "GameMain.h" is currently in, but again, feel free to put it anywhere as long as it doesn't leave the "Game" environment.
+
+Inside this "Trigger.h", and add a "ColorTrigger" ScriptBehaviour struct inside of it.
+
+*Trigger.h*
+
+```cpp
+#ifndef GAME_TRIGGER_H
+#define GAME_TRIGGER_H
+
+struct ColorTrigger : public ScriptBehaviour
+{
+
+}; // Remember to add a ";"" at the end.
+
+#endif
+```
+
+And now, let me introduce two void functions that will help you with this:
+
+## Introducing "OnTriggerEnter()" and "OnTriggerExit()"
+
+These two functions that are part of the ScriptBehaviour are going to help us with the trigger's overall functionality.
+
+You add them like this:
+
+```cpp
+#ifndef GAME_TRIGGER_H
+#define GAME_TRIGGER_H
+
+#include "geometria.h"
+#include "geometria/physics.h"
+
+struct ColorTrigger : public ScriptBehaviour
+{
+	void OnTriggerEnter(ScriptBehaviour& hit)
+	{
+
+	}
+
+	void OnTriggerExit(ScriptBehaviour& hit)
+	{
+
+	}
+}; // Remember to add a ";"" at the end.
+
+#endif
+```
+
+> [!TIP]
+> Remember to add ```(ScriptBehaviour& hit)``` inside of the parenthesis of both functions, otherwise it'll not work.
+
+```OnTriggerEnter(ScriptBehaviour& hit)``` is going to execute the moment a collider is inside of the trigger, and the "hit" parameter is going to contain the information about that object that entered the trigger's space.
+
+So, with that beind said, let's go and code what happens when an object is inside the trigger:
+
+Since "hit" can be *any* object that has a collider, let's check if its actually the Rigidbody, we can do it by checking if getting the script we made for the Rigidbody is not a "null pointer", or ```nullptr```.
+
+In the tutorial's end, remember that its called "Player":
+
+```cpp
+void OnTriggerEnter(ScriptBehaviour& hit)
+{
+	if(hit.GetScript<Player>() != nullptr)
+	{
+
+	}
+}
+```
+
+Now let's code that if the condition is true, meaning that there is a Player script, we can get the Model component and change its color.
+
+Let's change it to something like **RED**, for example.
+
+```cpp
+void OnTriggerEnter(ScriptBehaviour& hit)
+{
+	if(hit.GetScript<Player>() != nullptr)
+	{
+		hit.GetScript<Model>()->color = Color::red();
+	}
+}
+```
+
+Since we know the player **contains** a Model component, we don't have any problem doing a quick approach, although if you wanna make 100% sure that it has a component so it doesn't crash, you can do something similar to this:
+
+```cpp
+if(hit.GetScript<Player>() != nullptr)
+{
+	Model* getModel = hit.GetScript<Model>();
+	if(getModel != nullptr)
+	{
+		getModel->color = Color::red();
+	}
+}
+```
+
+Feel free to code any option you want since both examples are completely valid :)
+
+**Nice! We finished coding the ```OnTriggerEnter()``` function**
+
+Now the only thing missing is to add functionality inside of the ```OnTriggerExit()```.
+
+```OnTriggerEnter(ScriptBehaviour& hit)``` is going to execute the moment an object **exits** the trigger, which is basically the opposite of ```OnTriggerEnter()```.
+
+You basically do the exact same thing, but the only thing you change is the color of the Model, since in this case we want it to go back to its original **YELLOW** color.
+
+So its pretty much a "copy-paste" with little modifications:
+
+```cpp
+void OnTriggerExit(ScriptBehaviour& hit)
+{
+	if(hit.GetScript<Player>() != nullptr)
+	{
+		hit.GetScript<Model>()->color = Color::yellow();
+	}
+}
+```
+
+**Aaaaaand done! We coded the Trigger! :D**
+
+## Final Touches.
+
+So now, let's head back to GameMain.h...
+
+Include the Trigger header file we just did:
+
+```cpp
+#pragma once
+
+#include "geometria.h"
+#include "geometria/physics.h"
+
+#include "Player.h"
+#include "Trigger.h"
+```
+
+> [!TIP]
+> Remember that in this tutorial, i added it in the same directory as "GameMain.h", so if you added it in a Game sub-folder that you created, make sure to add that path instead.
+
+And once we included it, we add the script to the Trigger object.
+
+In this tutorial, i called it "ColorTrigger":
+
+```cpp
+trigger->AddScript<Rigidbody>();
+BoxCollider* triggerBC = trigger->AddScript<BoxCollider>();
+triggerBC->SetTrigger(true);
+
+trigger->AddScript<ColorTrigger>();
+```
+
+## Final Result.
+
+Now... its time to see the **final results**!
+
+If we compile and run it, we're gonna see our nice yellow square:
+
+![Trigger Result 1](./resources/trigger-result-1.png)
+
+**But if we teleport it by pressing "R"**
+
+We're gonna see that the moment the square gets inside of the trigger...
+
+**IT TURNS RED! :D**
+
+![Trigger Result 2](./resources/trigger-result-2.png)
+
+And once it leaves the trigger, it turns back to yellow!
+
+## Congratulations!
+
+You made it :D! You now know the basics of Triggers!
+
+If you want as a **little bonus**, feel free to go back to "GameMain.h" and make the trigger Model transparent!
+
+```cpp
+Model* trigger = new Model(Model::Primitives::SQUARE, Vector3(0, 2, -10.1), Vector3(0), Vector3(5, 2, 1));
+trigger->color = Color(0, 0, 0, 0);
+```
+
+If you compile and run it again, you're gonna see that the trigger is completely invisible! :D
+
+![Trigger Result 3](./resources/trigger-result-3.png)
+
+So that's it for this chapter! Hope you enjoyed it!
+
+**The Next one** is about [**Velocity Manipulation**](/physics/velocity-manipulation.md)! See you there! :D
