@@ -203,7 +203,7 @@ void OnUpdate()
 {
 	if(Input::GetKeyDown(GLFW_KEY_R))
 	{
-		if(PhysicsManager::Raycast(GetTransform()->position, Vector3::down(), 1))
+		if(PhysicsManager::Raycast(GetTransform().position, Vector3::down(), 1))
 		{
 			GetScript<Rigidbody>()->GetRigidbodyTransform().position = Vector3(0, 2, -5);
 		}
