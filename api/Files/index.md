@@ -422,6 +422,184 @@ Files::UnZIP("main.zip");
 Files::UnZIP("main.zip", "/something");
 ```
 
+### std::string GetGamePath();
+
+**Requires**: Nothing!
+**Returns**: A string.
+
+Allows you to get the game's path.
+
+```cpp
+... // Top code
+
+// I would like to print out the game path:
+std::cout << Files::GetGamePath() << std::endl;
+
+... // Bottom code
+```
+
 ## Console functions:
 
+### std::string WhereIs(std::string name);
+
+**Requires**: A string.
+**Returns**: Another string.
+
+The equivalent of the "where" command on Windows, or "which" on Linux.
+
+TODO: FINISH THIS WITH AN EXAMPLE IM LAZY OK
+
+```cpp
+... // Top code
+
+
+... // Bottom code
+```
+
+### std::string RunCommand(std::string cmd);
+
+**Requires**: A string.
+**Returns**: Another string.
+
+Runs the specified command, and returns its output.
+
+```cpp
+... // Top code
+
+// This just runs an example command, and displays information from its output.
+std::string output = Files::RunCommand("whoami");
+std::cout << "Hello, " << output << "!" << std::endl;
+
+... // Bottom code
+```
+### std::string GetValueFromCommand(std::string cmd);
+
+**Requires**: A string.
+**Returns**: Another string. (I'm starting to notice a pattern.)
+
+Runs the specified command, and returns its output.
+```cpp
+... // Top code
+
+// This will print the output of the "ls" command
+std::cout << Files::GetPathFromCommand("ls") << std::endl;
+
+... // Bottom code
+```
+
+### std::string GetPathFromCommand(std::string cmd);
+
+**Requires**: A string.
+**Returns**: Another string. (Again?!)
+
+Same as `GetValueFromCommand`, but only returns it if the output is a valid path.
+
+```cpp
+... // Top code
+
+//Get current active path through this method
+std::cout << Files::GetPathFromCommand("cd") << std::endl;
+
+... // Bottom code
+```
+
 ## System & App Management:
+
+### void ClearConsole();
+
+**Requires**: Nothing.
+**Returns**: And nothing!
+
+This function clears the console.
+
+```cpp
+... // Top code
+
+//Clear the console, now!
+Files::ClearConsole();
+
+... // Bottom code
+```
+
+### void HideConsole();
+
+**Requires**: Nothing.
+**Returns**: And nothing! (Another pattern, lmao)
+
+Hides the console, if currently visible. **[CURRENTLY WINDOWS ONLY]**
+
+```cpp
+... // Top code
+
+// The console is not needed anymore, hide it!
+Files::HideConsole();
+
+... // Bottom code
+```
+
+### void ShowConsole();
+
+**Requires**: Nothing.
+**Returns**: And nothing!
+
+Shows the console, if hidden previously. **[CURRENTLY WINDOWS ONLY]**
+
+```cpp
+... // Top code
+
+// Show the console, I just printed something useful!
+Files::ShowConsole();
+
+... // Bottom code
+```
+
+### void PauseConsole();
+
+**Requires**: Nothing.
+**Returns**: And nothing!
+
+Pauses the console, and will resume process once enter has been pressed in the console.
+
+```cpp
+... // Top code
+
+// I really have nothing to explain here.
+Files::PauseConsole();
+
+
+std::cout << "Unpaused!" << std::endl; // Won't be shown until Enter has been pressed.
+
+... // Bottom code
+```
+
+### void ChangeCurrentDirectory(std::string path);
+
+**Requires**: A string.
+**Returns**: Nothing.
+
+Goes to the desired directory. Apparently doesn't work on Linux yet. 
+
+```cpp
+... // Top code
+
+// Switches to the Game directory
+Files::ChangeCurrentDirectory("./Game");
+
+... // Bottom code
+```
+
+### std::string GetExecutablePath();
+
+**Requires**: Nothing.
+**Returns**: A string.
+
+Returns the current executable's path.
+
+```cpp
+... // Top code
+
+// Prints executable path.
+std::cout << Files::GetExecutablePath() << std::endl;
+
+... // Bottom code
+```
