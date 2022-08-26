@@ -128,28 +128,150 @@ If we compile and run it, we're gonna see that the player not only jumps when we
 
 ### Code it to whatever fits you best.
 
-If you move left and right, you're gonna see that the current implementation is extremely physics-based.
+Probably you want the player to stop once it finishes moving from left to right, or maybe its not fast enough for you...
 
-For some games this is a neat detail since the player slides a bit before it ends, and also keeps its horizontal momentum while jumping.
+Well, you can make those changes too!
 
-But probably isn't snappy enough for you, **which is extremely fine** by the way! :D
-
-Some games want a more "quick response" to horizontal movement that basically **stops** the moment the A and/or D keys are no longer pressed.
-
-An alternative to this is to discard the ```SetVelocity()``` implementation for horizontal movement and use ```GetRigidbodyTransform()``` instead, leaving ```SetVelocity()``` for only jumping.
+Try changing the speed to 300 instead of 250!
 
 ```cpp
 if(Input::GetKey(GLFW_KEY_A))
 {
-	rb->GetRigidbodyTransform().position -= Vector3(1 * Graphics::DeltaTime(), 0, 0);
+	rb->SetVelocity(Vector3(-300 * Graphics::DeltaTime(), rb->GetVelocity().y, 0));
 }
 
 if(Input::GetKey(GLFW_KEY_D))
 {
-	rb->GetRigidbodyTransform().position += Vector3(1 * Graphics::DeltaTime(), 0, 0);
+	rb->SetVelocity(Vector3(300 * Graphics::DeltaTime(), rb->GetVelocity().y, 0));
 }
 ```
 
-```GetVelocity()``` is not needed anymore since we're **adding** or **subtracting** rather than **setting** the values.
+Or if you want the horizontal momentum to stop once i stop pressing the A and D keys.
 
-And you're gonna need to change the speed to something *way* much smaller since we're not moving around forces anymore.
+```cpp
+if(!Input::GetKey(GLFW_KEY_A) && !Input::GetKey(GLFW_KEY_D))
+{
+	rb->SetVelocity(Vector3(0, rb->GetVelocity().y, 0));
+}
+```
+
+Or add an automatic jump so you can hold SPACE and it'll auto-jump again the moment it touches the floor, by changing ```Input::GetKeyDown()``` to ```Input::GetKey()```.
+
+```cpp
+if(Input::GetKey(GLFW_KEY_SPACE))
+{
+	... // The rest of the code
+}
+```
+
+**Its up to you to code it what you want! :D**
+
+For this case i'm going to apply all of these three changes, but again, feel free to experiment with it, and come back once you finished coding the perfect functionality you're looking for :)
+
+Now that you're back from experimenting with the moveset...
+
+### Let's code the goal.
+
+Since the goal is going to be on top, we're going to:
+
+- Change its color to green.
+- Set its size to (1, 1, 1).
+- Move it a bit up.
+
+In the GameMain.h file...
+
+```cpp
+Model* trigger = new Model(Model::Primitives::SQUARE, Vector3(0, 5, -10.1), Vector3(0), Vector3(1, 1, 1));
+trigger->color = Color::green();
+```
+
+Now, let's go to our "ColorTrigger" script, and code it so instead of changing the color of the player, it teleports it back to its spawn point.
+
+```cpp
+void OnTriggerEnter(ScriptBehaviour& hit)
+{
+	if(hit.GetScript<Player>() != nullptr)
+	{
+		hit.GetScript<Rigidbody>()->GetRigidbodyTransform().position = Vector3(0, 2, -10);
+	}
+}
+```
+
+### 2nd Result.
+
+If we compile and run it, you can see the goal up there clearly! :D
+
+![Bundle 2 Result 1](./resources/bundle-2-result-1.png)
+
+### Now, the final touch...
+
+Turn this into a fun little challange!
+
+First, let's lower down the floor a bit to something like (0, -4, -10):
+
+```cpp
+Model* floor = new Model(Model::Primitives::SQUARE, Vector3(0, -4, -10), Vector3(0), Vector3(5, 2, 1));
+```
+
+And lower down the player aswell, how about (0, 0, -10)?
+
+```cpp
+Model* rigidBody = new Model(Model::Primitives::SQUARE, Vector3(0, 0, -10), Vector3(0), Vector3(1));
+```
+
+### 3rd Result.
+
+Now if we compile and run it again...
+
+**NOW THAT'S MORE LIKE IT!**
+
+![Bundle 2 Result 2](./resources/bundle-2-result-2.png)
+
+Now the square is lower, therefor it can't reach the goal by just jumping.
+
+Now, for the last step, let's add some plaforms!
+
+In this case i'll set the first platform's position to (-6, 0, -10), and the second one to (6, 0, -10) so the player can have a choice if it wants to go left or right.
+
+```cpp
+Model* floor2 = new Model(Model::Primitives::SQUARE, Vector3(-6, 0, -10), Vector3(0), Vector3(5, 2, 1));
+Model* floor3 = new Model(Model::Primitives::SQUARE, Vector3(6, 0, -10), Vector3(0), Vector3(5, 2, 1));
+
+floor2->AddScript<BoxCollider>();
+floor3->AddScript<BoxCollider>();
+```
+
+And finally add both to the Draw Call:
+
+```cpp
+RendererCore::AddModel(*floor2, d->Target());
+RendererCore::AddModel(*floor3, d->Target());
+```
+
+### Final Result.
+
+If we compile and run once again, you're gonna see that the platformer works!
+
+![Bundle 3 Result 1](./resources/bundle-3-result-1.png)
+
+Feel free to enjoy your final result!
+
+![Bundle 3 Result 2](./resources/bundle-3-result-2.png)
+
+![Bundle 3 Result 3](./resources/bundle-3-result-3.png)
+
+## Congratulations!
+
+**You successfully completed the PHYSICS Tutorial! :D**
+
+***Fantastic Job!***
+
+**You sucessfully learned about Collisions, Dynamic Bodies, Raycasting, Triggers and Manipulation of Forces!**
+
+Hope you enjoyed it a lot! :D
+
+Now you can feel free to look around for other tutorials!
+
+### Special Thanks (as NachoBIT):
+
+I want to thank **Guigui** and **The Seg Fault** for helping me a lot with grammar issues and ideas, you guys are the best :D.
