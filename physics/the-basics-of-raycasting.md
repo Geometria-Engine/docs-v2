@@ -151,7 +151,7 @@ Now, we're going to apply the three parameters we need to add inside the Raycast
 
 - First, **the origin**:
 
-	Since the origin is the center of the Player, we're going to add ```GetTransform()->position``` to the origin.
+	Since the origin is the center of the Player, we're going to add ```GetTransform().position``` to the origin.
 
 - Second, **the direction**:
 
@@ -168,7 +168,7 @@ void OnUpdate()
 {
 	if(Input::GetKeyDown(GLFW_KEY_R))
 	{
-		if(PhysicsManager::Raycast(GetTransform()->position, Vector3::down(), 1))
+		if(PhysicsManager::Raycast(GetTransform().position, Vector3::down(), 1))
 		{
 
 		}
