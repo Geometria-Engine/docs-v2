@@ -224,7 +224,7 @@ Which is a good approach, not saying it isn't, but if you're looking for perform
 	
 	struct Player : public ScriptBehaviour
 	{
-		Rigidbody rb = nullptr;
+		Rigidbody* rb = nullptr;
 	
 		... // The rest of the code
 	};
