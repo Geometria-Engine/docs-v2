@@ -238,17 +238,12 @@ This function allows you to read image data.
 
 //I have a .png file which i know the width and height 
 //that I want to read the data from.
-int width = 16;
-int height = 16;
+int width;
+int height;
 std::string billyData = Files::OpenImage("Game/billy.png", width, height);
 
 ... // Bottom code
 ```
-
-### std::vector\<std::string\> OpenTexturePack(const char* gtxp);
-
-> uhhhhhhhh what's this supposed to be?
-> -#Guigui
 
 ### bool Remove(const char* url);
 
@@ -257,10 +252,13 @@ std::string billyData = Files::OpenImage("Game/billy.png", width, height);
 
 This function removes the file at desired file path.
 
+**Short Example**:
+
 ```cpp
 ... // Top code
 
-//I have a .txt file I want to remove.
+// I have a .txt file that contains mean words
+// so i want to remove them from the files.
 Files::Remove("Game/meanwords.txt");
 
 ... // Bottom code
@@ -276,6 +274,8 @@ Same as `OpenImage()`, but instead of an `std::string`, it's an `std::vector` fu
 **Returns**: A boolean.
 
 This function saves image data to a file.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -293,7 +293,17 @@ Files::SaveImage("newfile.png", data, 256, 256);
 
 Reads an .obj file and returns a vector of floats, containing vertex data
 
-> TODO: what's it supposed to be help
+**Short Example**:
+
+```cpp
+... // Top code
+
+// I want to load a "sphere" model that i have inside my Game files.
+std::vector<float> sphereObj = Files::Read("Game/sphere.obj");
+Model* sphereModel = new Model(sphereObj, Vector3(0), Vector3(0), Vector3(1));
+
+... // Bottom code
+```
 
 ## Directory & ZIP Management:
 
@@ -303,6 +313,8 @@ Reads an .obj file and returns a vector of floats, containing vertex data
 **Returns**: Nothing.
 
 This function creates a directory in the specified location.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -320,10 +332,12 @@ Files::CreateDirectory("Game/NewFolder_9999");
 
 This function copies the specified directory into the specified destination.
 
+**Short Example**:
+
 ```cpp
 ... // Top code
 
-// I want to copy a folder to another place.
+// I want to backup this extremely important folder so i don't lose anything.
 Files::CopyDirectory("Game/DO_NOT_LOSE_THIS_DATA", "Backup/ImportantData");
 
 ... // Bottom code
@@ -335,6 +349,8 @@ Files::CopyDirectory("Game/DO_NOT_LOSE_THIS_DATA", "Backup/ImportantData");
 **Returns**: Nothing.
 
 This function deletes the specified folder.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -352,13 +368,18 @@ Files::DeleteDirectory("SomeUnneededFolder");
 
 This function tells you whether a directory exists or no.
 
+**Short Example**:
+
 ```cpp
 ... // Top code
 
 // Let's say I want to check if a folder exists before checking the files inside:
-if(Files::DirectoryExists("CoolFolder")){
-	... //Code related to do stuff with the contents of the folder
-}else{
+if(Files::DirectoryExists("CoolFolder"))
+{
+	... // Code related to do stuff with the contents of the folder
+}
+else
+{
 	std::cout << "No folder named \"CoolFolder\" to be seen! :(" << std::endl;
 }
 ... // Bottom code
@@ -370,6 +391,8 @@ if(Files::DirectoryExists("CoolFolder")){
 **Returns**: A string.
 
 Removes the filename from the directory path. Could be useful to get a folder from a full path.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -389,6 +412,8 @@ std::cout << Files::GetDirectoryOf("Path/To/SomeFile.txt") << std::endl;
 
 Retrieves the filename from a directoory path, and returns it. Basically the opposite of `GetDirectoryOf()`.
 
+**Short Example**:
+
 ```cpp
 ... // Top code
 
@@ -401,12 +426,14 @@ std::cout << Files::GetFilenameFromDirectory("Path/To/SomeFile.txt") << std::end
 ```
 
 
-### int UnZIP(const char* url, [OPTIONAL] std::string discardFolderEx);
+### int UnZIP(const char* url, ```OPTIONAL``` std::string discardFolderEx);
 
 **Requires**: An array of chars, and optionally a string.
 **Returns**: An integer.
 
-Unzips the specified ZIP file. [EXPERIMENTAL] You can provide a path to a folder to discard, like if for example everything in the zip is in a subfolder, you can put the path to that main folder from within the zip.
+Unzips the specified ZIP file. ```EXPERIMENTAL```: You can provide a path to a folder to discard, like if for example everything in the zip is in a subfolder, you can put the path to that main folder from within the zip.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -429,6 +456,8 @@ Files::UnZIP("main.zip", "/something");
 
 Allows you to get the game's path.
 
+**Short Example**:
+
 ```cpp
 ... // Top code
 
@@ -447,11 +476,16 @@ std::cout << Files::GetGamePath() << std::endl;
 
 The equivalent of the "where" command on Windows, or "which" on Linux.
 
-TODO: FINISH THIS WITH AN EXAMPLE IM LAZY OK
+**Short Example**:
 
 ```cpp
 ... // Top code
 
+// I'm making a tool that checks if "git" is in my system.
+if(Files::WhereIs("git") != "")
+{
+	std::cout << "Git is installed in my system! :D" << std::endl;
+}
 
 ... // Bottom code
 ```
@@ -462,6 +496,8 @@ TODO: FINISH THIS WITH AN EXAMPLE IM LAZY OK
 **Returns**: Another string.
 
 Runs the specified command, and returns its output.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -475,14 +511,17 @@ std::cout << "Hello, " << output << "!" << std::endl;
 ### std::string GetValueFromCommand(std::string cmd);
 
 **Requires**: A string.
-**Returns**: Another string. (I'm starting to notice a pattern.)
+**Returns**: Another string.
 
 Runs the specified command, and returns its output.
+
+**Short Example**:
+
 ```cpp
 ... // Top code
 
 // This will print the output of the "ls" command
-std::cout << Files::GetPathFromCommand("ls") << std::endl;
+std::cout << Files::GetValueFromCommand("ls") << std::endl;
 
 ... // Bottom code
 ```
@@ -490,9 +529,11 @@ std::cout << Files::GetPathFromCommand("ls") << std::endl;
 ### std::string GetPathFromCommand(std::string cmd);
 
 **Requires**: A string.
-**Returns**: Another string. (Again?!)
+**Returns**: Another string.
 
 Same as `GetValueFromCommand`, but only returns it if the output is a valid path.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -507,15 +548,18 @@ std::cout << Files::GetPathFromCommand("cd") << std::endl;
 
 ### void ClearConsole();
 
-**Requires**: Nothing.
-**Returns**: And nothing!
-
 This function clears the console.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
 
-//Clear the console, now!
+// I'm going to print this BIG message, and i want to
+// clear the console afterwards:
+std::cout << "This message is really big blah blah blah blah..." << std::endl;
+
+// Clear the console, now!
 Files::ClearConsole();
 
 ... // Bottom code
@@ -523,10 +567,9 @@ Files::ClearConsole();
 
 ### void HideConsole();
 
-**Requires**: Nothing.
-**Returns**: And nothing! (Another pattern, lmao)
-
 Hides the console, if currently visible. **[CURRENTLY WINDOWS ONLY]**
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -539,10 +582,9 @@ Files::HideConsole();
 
 ### void ShowConsole();
 
-**Requires**: Nothing.
-**Returns**: And nothing!
-
 Shows the console, if hidden previously. **[CURRENTLY WINDOWS ONLY]**
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -555,19 +597,20 @@ Files::ShowConsole();
 
 ### void PauseConsole();
 
-**Requires**: Nothing.
-**Returns**: And nothing!
-
 Pauses the console, and will resume process once enter has been pressed in the console.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
 
-// I really have nothing to explain here.
+// I want the person looking at the console to read this message before continuing.
+std::cout << "I have this message! Read it carefully before continuing!" << std::endl;
+
+// And now we pause the console, so once it finishes reading, it can press "Enter".
 Files::PauseConsole();
 
-
-std::cout << "Unpaused!" << std::endl; // Won't be shown until Enter has been pressed.
+std::cout << "Thank you for reading! Let's continue..." << std::endl; // Won't be shown until Enter has been pressed.
 
 ... // Bottom code
 ```
@@ -575,9 +618,10 @@ std::cout << "Unpaused!" << std::endl; // Won't be shown until Enter has been pr
 ### void ChangeCurrentDirectory(std::string path);
 
 **Requires**: A string.
-**Returns**: Nothing.
 
 Goes to the desired directory. Apparently doesn't work on Linux yet. 
+
+**Short Example**:
 
 ```cpp
 ... // Top code
@@ -590,10 +634,11 @@ Files::ChangeCurrentDirectory("./Game");
 
 ### std::string GetExecutablePath();
 
-**Requires**: Nothing.
 **Returns**: A string.
 
 Returns the current executable's path.
+
+**Short Example**:
 
 ```cpp
 ... // Top code
