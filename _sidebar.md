@@ -18,6 +18,7 @@
  		- [Introducing Triggers](/physics/introducing-triggers.md)
  		- [Velocity Manipulation](/physics/velocity-manipulation.md)
  		- [Bundle Up Everything](/physics/bundle-up-everything.md)
+ 	- [The Camera](/camera/the-camera.md)
 
 * [Geometria Reference API](/api/index.md)
 	- [Physics](/api/Physics/index.md)
